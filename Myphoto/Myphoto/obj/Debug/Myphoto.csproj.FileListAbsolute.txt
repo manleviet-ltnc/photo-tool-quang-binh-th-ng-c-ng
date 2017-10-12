@@ -1,0 +1,10 @@
+C:\Users\Administrator\Documents\GitHub\contactsapp\photo-tool-quang-binh-th-ng-c-ng\Myphoto\Myphoto\obj\Debug\Myphoto.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\contactsapp\photo-tool-quang-binh-th-ng-c-ng\Myphoto\Myphoto\obj\Debug\Myphoto.MainForm.resources
+C:\Users\Administrator\Documents\GitHub\contactsapp\photo-tool-quang-binh-th-ng-c-ng\Myphoto\Myphoto\obj\Debug\Myphoto.Properties.Resources.resources
+C:\Users\Administrator\Documents\GitHub\contactsapp\photo-tool-quang-binh-th-ng-c-ng\Myphoto\Myphoto\obj\Debug\Myphoto.csproj.GenerateResource.Cache
+C:\Users\Administrator\Documents\GitHub\contactsapp\photo-tool-quang-binh-th-ng-c-ng\Myphoto\Myphoto\obj\Debug\Myphoto.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\GitHub\contactsapp\photo-tool-quang-binh-th-ng-c-ng\Myphoto\Myphoto\bin\Debug\Myphoto.exe.config
+C:\Users\Administrator\Documents\GitHub\contactsapp\photo-tool-quang-binh-th-ng-c-ng\Myphoto\Myphoto\bin\Debug\Myphoto.exe
+C:\Users\Administrator\Documents\GitHub\contactsapp\photo-tool-quang-binh-th-ng-c-ng\Myphoto\Myphoto\bin\Debug\Myphoto.pdb
+C:\Users\Administrator\Documents\GitHub\contactsapp\photo-tool-quang-binh-th-ng-c-ng\Myphoto\Myphoto\obj\Debug\Myphoto.exe
+C:\Users\Administrator\Documents\GitHub\contactsapp\photo-tool-quang-binh-th-ng-c-ng\Myphoto\Myphoto\obj\Debug\Myphoto.pdb
