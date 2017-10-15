@@ -7,23 +7,50 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Manning.MyPhotoAlbum;
 
 namespace Myphoto
 {
     public partial class MainForm : Form
     {
+        private AlbumManager _manager;
+        private AlbumManager Manager
+        {
+            get
+            {
+                return _manager;
+            }
+            set
+            {
+                _manager = value;
+            }
+        }
         public MainForm()
         {
             InitializeComponent();
+            NewAlbum();
+        }
+
+        private void NewAlbum()
+        {
+            //TODO: clean up, save existing album
+            Manager = new AlbumManager();
+            DisplayAlbum();
+        }
+
+        private void DisplayAlbum()
+        {
+            pbxPhoto.Image = Manager.CurrentImage;
             SetTitleBar();
             SetStatusStrip(null);
         }
-
         private void SetTitleBar()
         {
             Version ver = new Version(Application.ProductVersion);
-            Text = String.Format("MyPhotos {0:0}.{1:0}",
-                                  ver.Major, ver.Minor);
+            string name = Manager.FullName;
+            Text = String.Format("{2} - MyPhoto {0:0}.{1:0}",
+                                  ver.Major, ver.Minor,
+                                  String.IsNullOrEmpty(name) ? "Untitled" : name);
            
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -94,7 +121,7 @@ namespace Myphoto
         {
             if (pbxPhoto.Image != null)
             {
-                sttInfo.Text = path;
+                sttInfo.Text = Manager.Current.FileName;
                 sttImageSize.Text= String.Format("{0:#}x{1:#}",
                                                   pbxPhoto.Image.Width,
                                                   pbxPhoto.Image.Height);
@@ -107,6 +134,76 @@ namespace Myphoto
                 sttAlbumPos.Text = null;
             }
         }
-          }
+
+        private void mnuFileNew_Click(object sender, EventArgs e)
+        {
+            NewAlbum();
         }
+
+        private void munFileOpen_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Title = "Open Album";
+            dlg.Filter = "Album files (*.abm)|*.abm"
+                         + "|All files (*.*)|*.*";
+            dlg.InitialDirectory = AlbumManager.DefaultPath;
+            dlg.RestoreDirectory = true;
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                //TODO: save any existing album
+
+                //Open the new album
+                //TODO: handle invalid album file
+                Manager = new AlbumManager(dlg.FileName);
+                DisplayAlbum();
+             
+            }
+            dlg.Dispose();
+        }
+
+        private void SaveAlbum(string name)
+        {
+            Manager.Save(name, true);
+        }
+        private void SaveAlbum()
+        {
+            if (String.IsNullOrEmpty(Manager.FullName))
+                SaveAsAlbum();
+            else
+            {
+                //Save the album under the existing name
+                SaveAlbum(Manager.FullName);
+            }
+        }
+
+        private void SaveAsAlbum()
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Title = "Save Album";
+            dlg.DefaultExt = "abm";
+            dlg.Filter = "Album files (*.abm)|*.abm"
+                         + "|All files (*.*)|*.*";
+            dlg.InitialDirectory = AlbumManager.DefaultPath;
+            dlg.RestoreDirectory = true;
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                SaveAlbum(dlg.FileName);
+                //Update title bar include new name
+                SetTitleBar();
+            }
+            dlg.Dispose();
+        }
+
+        private void mnuFileSave_Click(object sender, EventArgs e)
+        {
+            SaveAlbum();
+        }
+
+        private void mnuFlieSaveAs_Click(object sender, EventArgs e)
+        {
+            SaveAsAlbum();
+        }
+    }
+ }
 
