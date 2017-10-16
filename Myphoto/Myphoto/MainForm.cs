@@ -18,14 +18,21 @@ namespace Myphoto
         {
             get
             {
+<<<<<<< HEAD
                 return Manager;
+=======
+                return _manager;
+>>>>>>> 6df4d22c34c16a36481c0d38cffb78cbc8f94d16
             }
             set
             {
                 _manager = value;
             }
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6df4d22c34c16a36481c0d38cffb78cbc8f94d16
         public MainForm()
         {
             InitializeComponent();
@@ -34,22 +41,33 @@ namespace Myphoto
 
         private void NewAlbum()
         {
+<<<<<<< HEAD
             // TODO: clean up, save existing album
             Manager = new AlbumManager();
             DisplayAlbum();
         }
+=======
+            //TODO: clean up, save existing album
+            Manager = new AlbumManager();
+            DisplayAlbum();
+        }
+
+>>>>>>> 6df4d22c34c16a36481c0d38cffb78cbc8f94d16
         private void DisplayAlbum()
         {
             pbxPhoto.Image = Manager.CurrentImage;
             SetTitleBar();
             SetStatusStrip(null);
         }
-
         private void SetTitleBar()
         {
             Version ver = new Version(Application.ProductVersion);
             string name = Manager.FullName;
+<<<<<<< HEAD
             Text = String.Format("{2}-MyPhotos {0:0}.{1:0}",
+=======
+            Text = String.Format("{2} - MyPhoto {0:0}.{1:0}",
+>>>>>>> 6df4d22c34c16a36481c0d38cffb78cbc8f94d16
                                   ver.Major, ver.Minor,
                                   String.IsNullOrEmpty(name) ? "Untitled" : name);
            
@@ -122,7 +140,11 @@ namespace Myphoto
         {
             if (pbxPhoto.Image != null)
             {
+<<<<<<< HEAD
                 sttInfo.Text = Manager.Current.Filename;
+=======
+                sttInfo.Text = Manager.Current.FileName;
+>>>>>>> 6df4d22c34c16a36481c0d38cffb78cbc8f94d16
                 sttImageSize.Text= String.Format("{0:#}x{1:#}",
                                                   pbxPhoto.Image.Width,
                                                   pbxPhoto.Image.Height);
@@ -200,6 +222,7 @@ namespace Myphoto
             SaveAlbum();
         }
 
+<<<<<<< HEAD
         private void mnuFileSaveAs_Click(object sender, EventArgs e)
         {
             SaveAsAlbum();
@@ -241,7 +264,79 @@ namespace Myphoto
             }
             dlg.Dispose();
             DisplayAlbum();
+=======
+        private void mnuFileNew_Click(object sender, EventArgs e)
+        {
+            NewAlbum();
         }
+
+        private void munFileOpen_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Title = "Open Album";
+            dlg.Filter = "Album files (*.abm)|*.abm"
+                         + "|All files (*.*)|*.*";
+            dlg.InitialDirectory = AlbumManager.DefaultPath;
+            dlg.RestoreDirectory = true;
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                //TODO: save any existing album
+
+                //Open the new album
+                //TODO: handle invalid album file
+                Manager = new AlbumManager(dlg.FileName);
+                DisplayAlbum();
+             
+            }
+            dlg.Dispose();
+        }
+
+        private void SaveAlbum(string name)
+        {
+            Manager.Save(name, true);
+        }
+        private void SaveAlbum()
+        {
+            if (String.IsNullOrEmpty(Manager.FullName))
+                SaveAsAlbum();
+            else
+            {
+                //Save the album under the existing name
+                SaveAlbum(Manager.FullName);
+            }
+        }
+
+        private void SaveAsAlbum()
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Title = "Save Album";
+            dlg.DefaultExt = "abm";
+            dlg.Filter = "Album files (*.abm)|*.abm"
+                         + "|All files (*.*)|*.*";
+            dlg.InitialDirectory = AlbumManager.DefaultPath;
+            dlg.RestoreDirectory = true;
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                SaveAlbum(dlg.FileName);
+                //Update title bar include new name
+                SetTitleBar();
+            }
+            dlg.Dispose();
+        }
+
+        private void mnuFileSave_Click(object sender, EventArgs e)
+        {
+            SaveAlbum();
+        }
+
+        private void mnuFlieSaveAs_Click(object sender, EventArgs e)
+        {
+            SaveAsAlbum();
+>>>>>>> 6df4d22c34c16a36481c0d38cffb78cbc8f94d16
+        }
+    }
+ }
 
         private void mnuEditRemove_Click(object sender, EventArgs e)
         {
