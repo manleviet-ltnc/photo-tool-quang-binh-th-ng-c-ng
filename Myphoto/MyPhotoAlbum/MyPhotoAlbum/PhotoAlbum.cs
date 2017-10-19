@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Manning.MyPhotoAlbum
 {
-   public class PhotoAlbum : Collection<Photograph>, IDisposable
+    public class PhotoAlbum : Collection<Photograph>, IDisposable
     {
         private bool _hasChanged = false;
         public bool HasChanged
@@ -39,7 +39,7 @@ namespace Manning.MyPhotoAlbum
 
         protected override void ClearItems()
         {
-            if (Count >0)
+            if (Count > 0)
             {
                 Dispose();
                 base.ClearItems();
@@ -65,7 +65,7 @@ namespace Manning.MyPhotoAlbum
             HasChanged = true;
         }
 
-     public void Dispose()
+        public void Dispose()
         {
             foreach (Photograph p in this)
                 p.Dispose();

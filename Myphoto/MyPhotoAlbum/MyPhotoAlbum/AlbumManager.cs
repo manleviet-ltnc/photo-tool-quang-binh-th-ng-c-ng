@@ -68,7 +68,7 @@ namespace Manning.MyPhotoAlbum
             _album = new PhotoAlbum();
 
         }
-        public AlbumManager(string name): this ()
+        public AlbumManager(string name) : this()
         {
             _name = name;
             _album = AlbumStorage.ReadAlbum(name);
@@ -93,7 +93,7 @@ namespace Manning.MyPhotoAlbum
                 return Current.Image;
             }
         }
-        static public bool AlbumExits( string name)
+        static public bool AlbumExits(string name)
         {
             return File.Exists(name);
         }
@@ -101,10 +101,10 @@ namespace Manning.MyPhotoAlbum
         {
             if (FullName == null)
                 throw new InvalidOperationException("Unable to save album with no name");
-            AlbumStorage.WiteAlbum(Album, FullName);
+            AlbumStorage.WriteAlbum(Album, FullName);
 
         }
-        public void Save( string name, bool overwite)
+        public void Save(string name, bool overwite)
         {
             if (name == null)
                 throw new ArgumentNullException("name");

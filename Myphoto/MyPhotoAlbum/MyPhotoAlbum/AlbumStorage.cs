@@ -5,14 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-
 namespace Manning.MyPhotoAlbum
 {
-    public class AlbumStorageException  : Exception
+    public class AlbumStorageException : Exception
     {
-        public AlbumStorageException() : base () { }
+        public AlbumStorageException() : base() { }
         public AlbumStorageException(string msg) : base(msg) { }
-        public AlbumStorageException(string msg, Exception inner): base (msg, inner) { }
+        public AlbumStorageException(string msg, Exception inner) : base(msg, inner) { }
     }
 
 
@@ -20,7 +19,7 @@ namespace Manning.MyPhotoAlbum
     {
         static private int CurrentVersion = 63;
 
-        static public void WirteAlbum(PhotoAlbum album, string path)
+        static public void WriteAlbum(PhotoAlbum album, string path)
         {
             StreamWriter sw = null;
             try
@@ -33,7 +32,7 @@ namespace Manning.MyPhotoAlbum
 
                 album.HasChanged = false;
             }
-            catch( CannotUnloadAppDomainException uax)
+            catch (CannotUnloadAppDomainException uax)
             {
                 throw new AlbumStorageException("Unable to access album" + path, uax);
             }
@@ -43,7 +42,7 @@ namespace Manning.MyPhotoAlbum
                     sw.Close();
             }
         }
-        static private void WritePhoto( StreamWriter sw, Photograph p)
+        static private void WritePhoto(StreamWriter sw, Photograph p)
         {
             sw.WriteLine(p.Filename);
             sw.WriteLine(p.Caption != null ? p.Caption : "");
@@ -51,7 +50,7 @@ namespace Manning.MyPhotoAlbum
             sw.WriteLine(p.Photographer != null ? p.Photographer : "");
             sw.WriteLine(p.Notes != null ? p.Notes : "");
         }
-        static  public PhotoAlbum ReadAlbum(string path)
+        static public PhotoAlbum ReadAlbum(string path)
         {
             StreamReader sr = null;
             try
@@ -60,7 +59,7 @@ namespace Manning.MyPhotoAlbum
                 string version = sr.ReadLine();
 
                 PhotoAlbum album = new PhotoAlbum();
-                switch(version)
+                switch (version)
                 {
                     case "63":
                         ReadAlbumV63(sr, album);
@@ -83,9 +82,9 @@ namespace Manning.MyPhotoAlbum
                 if (sr != null)
                     sr.Close();
             }
-            
+
         }
-        static private void ReadAlbumV63 (StreamReader sr, PhotoAlbum  album)
+        static private void ReadAlbumV63(StreamReader sr, PhotoAlbum album)
         {
             Photograph p;
             do

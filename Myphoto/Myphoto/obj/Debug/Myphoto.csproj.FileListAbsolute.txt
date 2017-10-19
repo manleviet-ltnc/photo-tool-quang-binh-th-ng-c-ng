@@ -18,3 +18,5 @@ C:\Users\Administrator\Documents\GitHub\so-thu-sai-gon-ThangCuong071097\so-thu-s
 C:\Users\Administrator\Documents\GitHub\so-thu-sai-gon-ThangCuong071097\so-thu-sai-gon-ThangCuong071097\photo-tool-quang-binh-th-ng-c-ng\Myphoto\Myphoto\obj\Debug\Myphoto.csproj.CoreCompileInputs.cache
 C:\Users\Administrator\Documents\GitHub\so-thu-sai-gon-ThangCuong071097\so-thu-sai-gon-ThangCuong071097\photo-tool-quang-binh-th-ng-c-ng\Myphoto\Myphoto\obj\Debug\Myphoto.exe
 C:\Users\Administrator\Documents\GitHub\so-thu-sai-gon-ThangCuong071097\so-thu-sai-gon-ThangCuong071097\photo-tool-quang-binh-th-ng-c-ng\Myphoto\Myphoto\obj\Debug\Myphoto.pdb
+C:\Users\Administrator\Documents\GitHub\contactsapp\photo-tool-quang-binh-th-ng-c-ng\Myphoto\Myphoto\bin\Debug\MyPhotoAlbum.dll
+C:\Users\Administrator\Documents\GitHub\contactsapp\photo-tool-quang-binh-th-ng-c-ng\Myphoto\Myphoto\bin\Debug\MyPhotoAlbum.pdb
