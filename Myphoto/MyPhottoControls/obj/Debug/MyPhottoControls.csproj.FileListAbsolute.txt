@@ -1,0 +1,10 @@
+C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\bin\Debug\MyPhottoControls.dll
+C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\bin\Debug\MyPhottoControls.pdb
+C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\bin\Debug\MyPhotoAlbum.dll
+C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\bin\Debug\MyPhotoAlbum.pdb
+C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\obj\Debug\MyPhottoControls.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\obj\Debug\Manning.MyPhottoControls.FixelDialog.resources
+C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\obj\Debug\MyPhottoControls.csproj.GenerateResource.Cache
+C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\obj\Debug\MyPhottoControls.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\obj\Debug\MyPhottoControls.dll
+C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\obj\Debug\MyPhottoControls.pdb

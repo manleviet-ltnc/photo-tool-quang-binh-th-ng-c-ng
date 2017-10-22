@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AlbumManager.cs" />
     <Compile Include="AlbumStorage.cs" />
+    <Compile Include="ImageUtility.cs" />
     <Compile Include="PhotoAlbum.cs" />
     <Compile Include="PhotoGraph.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
