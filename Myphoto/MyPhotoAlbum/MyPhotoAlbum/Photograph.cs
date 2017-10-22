@@ -88,6 +88,8 @@ namespace Manning.MyPhotoAlbum
             set { _hasChanged = value; }
         }
 
+        public string FileName { get; set; }
+
         public Photograph(string fileName)
         {
             _fileName = fileName;

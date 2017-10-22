@@ -41,11 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseEditDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseEditDialog.Designer.cs">
+      <DependentUpon>BaseEditDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="FixelDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FixelDialog.Designer.cs">
       <DependentUpon>FixelDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PhotoEditDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PhotoEditDialog.Designer.cs">
+      <DependentUpon>PhotoEditDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
@@ -57,8 +69,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BaseEditDialog.resx">
+      <DependentUpon>BaseEditDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FixelDialog.resx">
       <DependentUpon>FixelDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PhotoEditDialog.resx">
+      <DependentUpon>PhotoEditDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

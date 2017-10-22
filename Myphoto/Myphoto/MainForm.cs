@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Manning.MyPhotoAlbum;
-
+using Manning.MyPhottoControls;
 
 namespace Myphoto
 {
@@ -69,11 +69,16 @@ namespace Myphoto
         }
 
         private PixelDialog _dlgPixel = null;
+        private object mnuPhotographer;
+
         private PixelDialog PixelForm
         {
             get { return _dlgPixel; }
             set { _dlgPixel = value; }
         }
+
+        public object PixelFrom { get; private set; }
+
         private void NewAlbum()
         {
             if (Manager == null || SaveAndCloseAlbum())
@@ -87,7 +92,8 @@ namespace Myphoto
             pbxPhoto.Image = Manager.CurrentImage;
             SetTitleBar();
             SetStatusStrip(null);
-            Point p = pbxPhoto.PointToClient(MousePosition);
+
+            Point p = pbxPhoto.PointToClient(Form.MousePosition);
             UpdatePixelDialog(p.X, p.Y);
         }
         private void SetTitleBar()
@@ -397,8 +403,10 @@ namespace Myphoto
 
         private void ctxMenuPhoto_Opening(object sender, CancelEventArgs e)
         {
-            //mnuNext.Enabled = (Manager.Index < Manager.Album.Count - 1);
-            //mnuPrevious.Enabled = (Manager.Index > 0);
+            mnuNext.Enabled = (Manager.Index < Manager.Album.Count - 1);
+            mnuPrevious.Enabled = (Manager.Index > 0);
+            mnuPhotoProperties.Enabled = (Manager.Current != null);
+   
         }
 
         private void InitializeComponent()
@@ -417,6 +425,7 @@ namespace Myphoto
             this.mnuPhotoProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuPixelData = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuView = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileNew = new System.Windows.Forms.ToolStripMenuItem();
@@ -437,7 +446,6 @@ namespace Myphoto
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuEditAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuEditRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuView = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
@@ -471,11 +479,12 @@ namespace Myphoto
             this.toolStripSeparator1,
             this.mnuNext,
             this.mnuPrevious,
-            this.mnuPhotoProperties,
             this.toolStripSeparator7,
-            this.mnuPixelData});
+            this.mnuPixelData,
+            this.mnuPhotoProperties});
             this.ctxMenuPhoto.Name = "ctxMenuPhoto";
-            this.ctxMenuPhoto.Size = new System.Drawing.Size(193, 126);
+            this.ctxMenuPhoto.OwnerItem = this.mnuView;
+            this.ctxMenuPhoto.Size = new System.Drawing.Size(193, 148);
             this.ctxMenuPhoto.Opening += new System.ComponentModel.CancelEventHandler(this.ctxMenuPhoto_Opening);
             // 
             // mnuImage
@@ -495,21 +504,21 @@ namespace Myphoto
             this.mnuImageScale.Checked = true;
             this.mnuImageScale.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuImageScale.Name = "mnuImageScale";
-            this.mnuImageScale.Size = new System.Drawing.Size(141, 22);
+            this.mnuImageScale.Size = new System.Drawing.Size(152, 22);
             this.mnuImageScale.Tag = "Zoom";
             this.mnuImageScale.Text = "&Sacle to Fit";
             // 
             // mnuImageStretch
             // 
             this.mnuImageStretch.Name = "mnuImageStretch";
-            this.mnuImageStretch.Size = new System.Drawing.Size(141, 22);
+            this.mnuImageStretch.Size = new System.Drawing.Size(152, 22);
             this.mnuImageStretch.Tag = "StretchImage";
             this.mnuImageStretch.Text = "S&tretch to Fit";
             // 
             // mnuIamgeActual
             // 
             this.mnuIamgeActual.Name = "mnuIamgeActual";
-            this.mnuIamgeActual.Size = new System.Drawing.Size(141, 22);
+            this.mnuIamgeActual.Size = new System.Drawing.Size(152, 22);
             this.mnuIamgeActual.Tag = "Normal";
             this.mnuIamgeActual.Text = "&Actual Size";
             // 
@@ -539,6 +548,7 @@ namespace Myphoto
             this.mnuPhotoProperties.Name = "mnuPhotoProperties";
             this.mnuPhotoProperties.Size = new System.Drawing.Size(192, 22);
             this.mnuPhotoProperties.Text = "Phot&o Properties...";
+            this.mnuPhotoProperties.Click += new System.EventHandler(this.mnuPhotoProperties_Click);
             // 
             // toolStripSeparator7
             // 
@@ -551,6 +561,13 @@ namespace Myphoto
             this.mnuPixelData.Size = new System.Drawing.Size(192, 22);
             this.mnuPixelData.Text = "Pi&xel Data...";
             this.mnuPixelData.Click += new System.EventHandler(this.mnuPixelData_Click);
+            // 
+            // mnuView
+            // 
+            this.mnuView.DropDown = this.ctxMenuPhoto;
+            this.mnuView.Name = "mnuView";
+            this.mnuView.Size = new System.Drawing.Size(44, 20);
+            this.mnuView.Text = "&View";
             // 
             // menuStrip1
             // 
@@ -727,13 +744,6 @@ namespace Myphoto
             this.mnuEditRemove.Text = "Remo&ve";
             this.mnuEditRemove.Click += new System.EventHandler(this.mnuEditRemove_Click);
             // 
-            // mnuView
-            // 
-            this.mnuView.DropDown = this.ctxMenuPhoto;
-            this.mnuView.Name = "mnuView";
-            this.mnuView.Size = new System.Drawing.Size(44, 20);
-            this.mnuView.Text = "&View";
-            // 
             // mnuHelp
             // 
             this.mnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -837,23 +847,23 @@ namespace Myphoto
                 PixelForm = new PixelDialog();
                 PixelForm.Owner = this;
             }
-
             PixelForm.Show();
-            Point p = pbxPhoto.PointToClient(MousePosition);
+
+            Point p = pbxPhoto.PointToClient(Form.MousePosition);
             UpdatePixelDialog(p.X, p.Y);
         }
 
-        private void UpdatePixelDialog(int X, int Y)
+        private void UpdatePixelDialog(int x, int y)
         {
             if (PixelForm != null && PixelForm.Visible)
             {
                 Bitmap bmp = Manager.CurrentImage;
                 PixelForm.Text = (Manager.Current == null) ? "Pixel Data" : Manager.Current.Caption;
 
-                if (bmp == null || !pbxPhoto.DisplayRectangle.Contains(X, Y))
+                if (bmp == null || !pbxPhoto.DisplayRectangle.Contains(x, y))
                     PixelForm.ClearPixelData();
                 else
-                    PixelForm.UpdatePixelData(X, Y, bmp, pbxPhoto.DisplayRectangle,
+                    PixelForm.UpdatePixelData(x, y, bmp, pbxPhoto.DisplayRectangle,
                                               new Rectangle(0, 0, bmp.Width, bmp.Height),
                                               pbxPhoto.SizeMode);
             }
@@ -864,6 +874,18 @@ namespace Myphoto
         private void pbxPhoto_MouseMove(object sender, MouseEventArgs e)
         {
             UpdatePixelDialog(e.X, e.Y);
+        }
+
+        private void mnuPhotoProperties_Click(object sender, EventArgs e)
+        {
+            if (Manager.Current == null)
+                return;
+
+            using (PhotoEditDialog dlg = new PhotoEditDialog(Manager))
+            {
+                if (dlg.ShowDialog() == DialogResult.OK)
+                    DisplayAlbum();
+            }
         }
     }
     }

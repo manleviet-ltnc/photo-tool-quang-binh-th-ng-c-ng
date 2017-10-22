@@ -8,3 +8,5 @@ C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto
 C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\obj\Debug\MyPhottoControls.csproj.CoreCompileInputs.cache
 C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\obj\Debug\MyPhottoControls.dll
 C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\obj\Debug\MyPhottoControls.pdb
+C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\obj\Debug\Manning.MyPhottoControls.BaseEditDialog.resources
+C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\obj\Debug\Manning.MyPhottoControls.PhotoEditDialog.resources
