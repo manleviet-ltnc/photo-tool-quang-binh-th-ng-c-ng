@@ -16,7 +16,7 @@ namespace Manning.MyPhotoAlbum
 
 
     public class AlbumStorage
-    {
+    { 
         static private int CurrentVersion = 91;
         private static object pwd;
 
@@ -33,13 +33,11 @@ namespace Manning.MyPhotoAlbum
                 else
                 {
                     // Create CryptoWriter to use as StreamWriter
-                    CryptoWriter cw = new CryptoWriter(path , password);
+                    CryptoWriter cw = new CryptoWriter(path, password);
                     cw.WriteUnencryptedLine(CurrentVersion.ToString() + 'e');
                     cw.WriteLine(password);
                     sw = cw;
                 }
-                sw = new StreamWriter(path, false);
-                sw.WriteLine(CurrentVersion.ToString());
 
                 // Save album properties
                 sw.WriteLine(album.Title);
@@ -71,7 +69,7 @@ namespace Manning.MyPhotoAlbum
             sw.WriteLine(p.Photographer != null ? p.Photographer : "");
             sw.WriteLine(p.Notes != null ? p.Notes : "");
         }
-       
+
         static public PhotoAlbum ReadAlbum(string path, string password)
         {
             StreamReader sr = null;
@@ -115,7 +113,7 @@ namespace Manning.MyPhotoAlbum
                     case "91e":
                         ReadAlbumV91(sr, album);
                         break;
-                    
+
                     default:
                         throw new AlbumStorageException("Unrecognized album version");
 
@@ -183,6 +181,7 @@ namespace Manning.MyPhotoAlbum
             return p;
 
         }
+
         static public bool IsEncryted(string path)
         {
             StreamReader sr = null;
@@ -191,7 +190,7 @@ namespace Manning.MyPhotoAlbum
                 using (sr = new StreamReader(path))
                 {
                     string version = sr.ReadLine();
-                    return NewMethod(version);
+                    return version.EndsWith("e");
                 }
             }
             catch (FileNotFoundException fnx)
@@ -199,10 +198,5 @@ namespace Manning.MyPhotoAlbum
                 throw new AlbumStorageException("Unable to find album " + path, fnx);
             }
         }
-
-        private static bool NewMethod(string version)
-        {
-            return version.EndsWith("e");
-        }
-    }
+    }   
 }

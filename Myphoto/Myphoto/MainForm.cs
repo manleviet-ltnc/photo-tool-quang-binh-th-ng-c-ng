@@ -78,8 +78,6 @@ namespace Myphoto
             get { return _dlgPixel; }
             set { _dlgPixel = value; }
         }
-
-        public object PixelFrom { get; private set; }
         public object MnuPhotographer { get => mnuPhotographer; set => mnuPhotographer = value; }
         public string Passord;
        
@@ -1005,7 +1003,7 @@ namespace Myphoto
             base.OnKeyDown(e);
         }
         private const int WM_KEYDOWN = 0x100;
-        private string passord;
+        private string  passord;
         private string pwd;
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
