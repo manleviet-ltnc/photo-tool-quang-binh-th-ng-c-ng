@@ -11,3 +11,4 @@ C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto
 C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\obj\Debug\Manning.MyPhottoControls.BaseEditDialog.resources
 C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\obj\Debug\Manning.MyPhottoControls.PhotoEditDialog.resources
 C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\obj\Debug\Manning.MyPhottoControls.AlbumEditDialog.resources
+C:\Users\Administrator\Documents\GitHub\photo-tool-quang-binh-th-ng-c-ng\Myphoto\MyPhottoControls\obj\Debug\Manning.MyPhottoControls.AlbumPasswordDialog.resources

@@ -24,6 +24,9 @@ namespace Manning.MyPhottoControls
         {
             get { return _manager; }
         }
+
+        public object MskDateTaken => mskDateTaken;
+
         protected PhotoEditDialog()
         {
             InitializeComponent();

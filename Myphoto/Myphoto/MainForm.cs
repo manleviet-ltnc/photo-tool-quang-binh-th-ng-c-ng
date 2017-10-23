@@ -80,6 +80,7 @@ namespace Myphoto
         }
 
         public object PixelFrom { get; private set; }
+        public object MnuPhotographer { get => mnuPhotographer; set => mnuPhotographer = value; }
 
         private void NewAlbum()
         {
@@ -206,13 +207,38 @@ namespace Myphoto
             dlg.RestoreDirectory = true;
             if (dlg.ShowDialog() == DialogResult.OK)
             {
+                string path = dlg.FileName;
+                string pwd = null;
+
+                // Get password if encrypted
+                if (AlbumStorage.IsEncryted(path))
+                {
+                    using (AlbumPasswordDialog pwdDlg = new AlbumPasswordDialog())
+                    {
+                        pwdDlg.Album = path;
+                        if (pwdDlg.ShowDialog() != DialogResult.OK)
+                            return;  // Open cancelled
+                        pwd = pwdDlg.Password;
+                    }
+                }
+            
+                if (!SaveAndCloseAlbum())
+                    return;
                 // TODO: save any existing album
-
-                // Open: the new abum
-                // TODO: handle invalid album file
-                Manager = new AlbumManager(dlg.FileName);
+                try
+                {   // Open: the new abum
+                    // TODO: handle invalid album file
+                    Manager = new AlbumManager.AlbumManager(path, pwd);
+                    DisplayAlbum();
+                }
+                catch (AlbumStorageException aex)
+                {
+                    string msg = String.Format("Unable to open album file {0}\n({1})",
+                                               path, aex.Message);
+                    MessageBox.Show(msg, "Unable to Open");
+                    Manager = new AlbumManager();
+                }
                 DisplayAlbum();
-
             }
             dlg.Dispose();
         }
@@ -357,11 +383,13 @@ namespace Myphoto
                     return;
                 try
                 {
-                    //Open the new album
-
-                    Manager = new AlbumManager(path);
-
+                    {
+                        // Open the new album
+                        // TODO: handel invalid album file
+                        Manager = new AlbumManager(path, pwd);
+                    }
                 }
+
                 catch (AlbumStorageException aex)
                 {
                     string msg = String.Format("Unable to open album file {0}\n({1})",
@@ -369,9 +397,7 @@ namespace Myphoto
                     MessageBox.Show(msg, "Unable to Open");
                     Manager = new AlbumManager();
                 }
-                Manager = new AlbumManager(dlg.FileName);
                 DisplayAlbum();
-
             }
             dlg.Dispose();
         }
@@ -388,6 +414,10 @@ namespace Myphoto
         private void mnuNext_Click(object sender, EventArgs e)
         {
             if (Manager.Index < Manager.Album.Count - 1)
+            {
+                Manager.Index++;
+                DisplayAlbum();
+            }
             {
                 Manager.Index++;
                 DisplayAlbum();
@@ -428,6 +458,7 @@ namespace Myphoto
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuPixelData = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuPhotoProperties = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAlbumProps = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuView = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -456,7 +487,6 @@ namespace Myphoto
             this.sttInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.sttImageSize = new System.Windows.Forms.ToolStripStatusLabel();
             this.sttAlbumPos = new System.Windows.Forms.ToolStripStatusLabel();
-            this.mnuAlbumProps = new System.Windows.Forms.ToolStripMenuItem();
             this.flybyProvider = new Manning.MyPhottoControls.Flyby_TextProvider();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPhoto)).BeginInit();
             this.ctxMenuPhoto.SuspendLayout();
@@ -489,7 +519,8 @@ namespace Myphoto
             this.mnuPhotoProperties,
             this.mnuAlbumProps});
             this.ctxMenuPhoto.Name = "ctxMenuPhoto";
-            this.ctxMenuPhoto.Size = new System.Drawing.Size(193, 148);
+            this.ctxMenuPhoto.OwnerItem = this.mnuView;
+            this.ctxMenuPhoto.Size = new System.Drawing.Size(193, 170);
             this.ctxMenuPhoto.Opening += new System.ComponentModel.CancelEventHandler(this.ctxMenuPhoto_Opening);
             // 
             // mnuImage
@@ -544,6 +575,7 @@ namespace Myphoto
             | System.Windows.Forms.Keys.N)));
             this.mnuNext.Size = new System.Drawing.Size(192, 22);
             this.mnuNext.Text = "&Next";
+            this.mnuNext.Click += new System.EventHandler(this.mnuNext_Click);
             // 
             // mnuPrevious
             // 
@@ -574,6 +606,14 @@ namespace Myphoto
             this.mnuPhotoProperties.Size = new System.Drawing.Size(192, 22);
             this.mnuPhotoProperties.Text = "Phot&o Properties...";
             this.mnuPhotoProperties.Click += new System.EventHandler(this.mnuPhotoProperties_Click);
+            // 
+            // mnuAlbumProps
+            // 
+            this.flybyProvider.SetFlybyText(this.mnuAlbumProps, null);
+            this.mnuAlbumProps.Name = "mnuAlbumProps";
+            this.mnuAlbumProps.Size = new System.Drawing.Size(192, 22);
+            this.mnuAlbumProps.Text = "Albu&m Properties";
+            this.mnuAlbumProps.Click += new System.EventHandler(this.mnuAlbumProps_Click);
             // 
             // mnuView
             // 
@@ -835,14 +875,6 @@ namespace Myphoto
             this.sttAlbumPos.Size = new System.Drawing.Size(34, 19);
             this.sttAlbumPos.Text = "1 / 1";
             // 
-            // mnuAlbumProps
-            // 
-            this.flybyProvider.SetFlybyText(this.mnuAlbumProps, null);
-            this.mnuAlbumProps.Name = "mnuAlbumProps";
-            this.mnuAlbumProps.Size = new System.Drawing.Size(192, 22);
-            this.mnuAlbumProps.Text = "Albu&m Properties";
-            this.mnuAlbumProps.Click += new System.EventHandler(this.mnuAlbumProps_Click);
-            // 
             // flybyProvider
             // 
             this.flybyProvider.StatusLabel = this.sttInfo;
@@ -974,6 +1006,9 @@ namespace Myphoto
             base.OnKeyDown(e);
         }
         private const int WM_KEYDOWN = 0x100;
+        private string passord;
+        private string pwd;
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (msg.Msg == WM_KEYDOWN)
@@ -988,6 +1023,8 @@ namespace Myphoto
                 }
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
+        
     }
             
 

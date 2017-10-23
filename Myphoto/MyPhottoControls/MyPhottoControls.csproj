@@ -47,6 +47,12 @@
     <Compile Include="AlbumEditDialog.Designer.cs">
       <DependentUpon>AlbumEditDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="AlbumPasswordDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AlbumPasswordDialog.Designer.cs">
+      <DependentUpon>AlbumPasswordDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="BaseEditDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AlbumEditDialog.resx">
       <DependentUpon>AlbumEditDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AlbumPasswordDialog.resx">
+      <DependentUpon>AlbumPasswordDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BaseEditDialog.resx">
       <DependentUpon>BaseEditDialog.cs</DependentUpon>

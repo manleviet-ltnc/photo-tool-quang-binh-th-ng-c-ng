@@ -43,6 +43,10 @@
   <ItemGroup>
     <Compile Include="AlbumManager.cs" />
     <Compile Include="AlbumStorage.cs" />
+    <Compile Include="Crypto TextBase.cs" />
+    <Compile Include="CryptoReader.cs" />
+    <Compile Include="CryptoTextBase.cs" />
+    <Compile Include="CryptoWriter.cs" />
     <Compile Include="ImageUtility.cs" />
     <Compile Include="PhotoAlbum.cs" />
     <Compile Include="PhotoGraph.cs" />

@@ -29,6 +29,22 @@ namespace Manning.MyPhotoAlbum
         {
             _defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\Albums";
         }
+        public AlbumManager(string name) : this()
+        {
+            _name = name;
+            _album = AlbumStorage.ReadAlbum(name);
+            if (Album.Count > 0)
+                Index = 0;
+        }
+
+        public AlbumManager(string name, string pwd) : this()
+        {
+            _name = name;
+            _album = AlbumStorage.ReadAlbum(name, pwd);
+            Password = pwd;
+            if (Album.Count > 0)
+                Index = 0;
+        }
         private int _pos = -1;
         public int Index
         {
@@ -76,13 +92,6 @@ namespace Manning.MyPhotoAlbum
             _album = new PhotoAlbum();
 
         }
-        public AlbumManager(string name) : this()
-        {
-            _name = name;
-            _album = AlbumStorage.ReadAlbum(name);
-            if (Album.Count > 0)
-                Index = 0;
-        }
         public Photograph Current
         {
             get
@@ -92,6 +101,8 @@ namespace Manning.MyPhotoAlbum
                 return Album[_pos];
             }
         }
+
+
         public Bitmap CurrentImage
         {
             get
@@ -101,6 +112,10 @@ namespace Manning.MyPhotoAlbum
                 return Current.Image;
             }
         }
+
+
+       
+       
         static public bool AlbumExits(string name)
         {
             return File.Exists(name);
@@ -109,7 +124,7 @@ namespace Manning.MyPhotoAlbum
         {
             if (FullName == null)
                 throw new InvalidOperationException("Unable to save album with no name");
-            AlbumStorage.WriteAlbum(Album, FullName);
+            AlbumStorage.WriteAlbum(Album, FullName, Password);
 
         }
         public void Save(string name, bool overwite)
@@ -119,7 +134,7 @@ namespace Manning.MyPhotoAlbum
             if (name != FullName && AlbumExits(name) && !overwite)
                 throw new ArgumentException(" An album with this name exists");
 
-            AlbumStorage.WriteAlbum(Album, name);
+            AlbumStorage.WriteAlbum(Album, name,Password);
             FullName = name;
 
         }
@@ -140,5 +155,37 @@ namespace Manning.MyPhotoAlbum
             Index--;
             return true;
         }
+
+        public class AlbumManager : MyPhotoAlbum.AlbumManager
+        {
+            public AlbumManager()
+            {
+            }
+
+            public AlbumManager(string name) : base(name)
+            {
+            }
+
+            public AlbumManager(string name, string pwd) : base(name, pwd)
+            {
+                
+            }
+
+            public override bool Equals(object obj)
+            {
+                return base.Equals(obj);
+            }
+
+            public override int GetHashCode()
+            {
+                return base.GetHashCode();
+            }
+
+            public override string ToString()
+            {
+                return base.ToString();
+            }
+        }
     }
+    
 }
