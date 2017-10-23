@@ -18,7 +18,7 @@ namespace Manning.MyPhotoAlbum
     public class AlbumStorage
     {
         static private int CurrentVersion = 91;
-        private static object password;
+        private static object pwd;
 
         static public void WriteAlbum(PhotoAlbum album, string path, string password)
         {
@@ -191,13 +191,18 @@ namespace Manning.MyPhotoAlbum
                 using (sr = new StreamReader(path))
                 {
                     string version = sr.ReadLine();
-                    return version.EndsWith("e");
+                    return NewMethod(version);
                 }
             }
             catch (FileNotFoundException fnx)
             {
                 throw new AlbumStorageException("Unable to find album " + path, fnx);
             }
+        }
+
+        private static bool NewMethod(string version)
+        {
+            return version.EndsWith("e");
         }
     }
 }

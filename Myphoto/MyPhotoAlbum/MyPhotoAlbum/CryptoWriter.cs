@@ -15,6 +15,9 @@ namespace Manning.MyPhotoAlbum
         {
             get { return _base; }
         }
+
+        public object Path { get => path; set => path = value; }
+
         public CryptoWriter(Stream path, string password):base(path)
         {
             if (path == null || path.Length == 0)

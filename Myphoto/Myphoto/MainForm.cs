@@ -81,6 +81,9 @@ namespace Myphoto
 
         public object PixelFrom { get; private set; }
         public object MnuPhotographer { get => mnuPhotographer; set => mnuPhotographer = value; }
+        public string Passord;
+       
+        public string Pwd { get => pwd; set => pwd = value; }
 
         private void NewAlbum()
         {
@@ -228,7 +231,7 @@ namespace Myphoto
                 try
                 {   // Open: the new abum
                     // TODO: handle invalid album file
-                    Manager = new AlbumManager.AlbumManager(path, pwd);
+                    Manager = new AlbumManager(path, pwd);
                     DisplayAlbum();
                 }
                 catch (AlbumStorageException aex)
@@ -386,7 +389,7 @@ namespace Myphoto
                     {
                         // Open the new album
                         // TODO: handel invalid album file
-                        Manager = new AlbumManager(path, pwd);
+                        Manager = new AlbumManager(path, Pwd);
                     }
                 }
 
@@ -414,10 +417,6 @@ namespace Myphoto
         private void mnuNext_Click(object sender, EventArgs e)
         {
             if (Manager.Index < Manager.Album.Count - 1)
-            {
-                Manager.Index++;
-                DisplayAlbum();
-            }
             {
                 Manager.Index++;
                 DisplayAlbum();

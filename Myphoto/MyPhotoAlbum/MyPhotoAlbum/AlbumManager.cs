@@ -156,36 +156,7 @@ namespace Manning.MyPhotoAlbum
             return true;
         }
 
-        public class AlbumManager : MyPhotoAlbum.AlbumManager
-        {
-            public AlbumManager()
-            {
-            }
-
-            public AlbumManager(string name) : base(name)
-            {
-            }
-
-            public AlbumManager(string name, string pwd) : base(name, pwd)
-            {
-                
-            }
-
-            public override bool Equals(object obj)
-            {
-                return base.Equals(obj);
-            }
-
-            public override int GetHashCode()
-            {
-                return base.GetHashCode();
-            }
-
-            public override string ToString()
-            {
-                return base.ToString();
-            }
-        }
+      
     }
     
 }
