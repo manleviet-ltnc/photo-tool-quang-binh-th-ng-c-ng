@@ -316,6 +316,7 @@ namespace MyPhotos
             mnuPrevious.Enabled = (Manager.Index > 0);
             mnuPhotoProps.Enabled = (Manager.Current != null);
             mnuAlbumProps.Enabled = (Manager.Album != null);
+            mnuSlideShow.Enabled = (Manager.Album != null && Manager.Album.Count > 1);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -434,6 +435,51 @@ namespace MyPhotos
                 }
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void mnuSlideShow_Click(object sender, EventArgs e)
+        {
+            using (SlideShowDialog dlg = new SlideShowDialog(Manager))
+            {
+                dlg.ShowDialog();
+            }
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            tsbNew.Tag = mnuFileNew;
+            tsbOpen.Tag = mnuFileOpen;
+            tsbSave.Tag = mnuFileSave;
+            tsbPrint.Tag = mnuFilePrint;
+            tsbCut.Tag = mnuEditCut;
+            tsbCopy.Tag = mnuEditCopy;
+            tsbPaste.Tag = mnuEditPaste;
+            tsbPrevious.Tag = mnuPrevious;
+            tsbNext.Tag = mnuNext;
+            tsbHelp.Tag = mnuHelpAbout;
+
+            toolStripMain.ImageList = imageListArrows;
+            tsbPrevious.ImageIndex = 1;
+            tsbNext.ImageIndex = 0;
+
+            tsbAlbumProps.Tag = mnuAlbumProps;
+            tsbPhotoProps.Tag = mnuPhotoProps;
+            tsbPixelData.Tag = tsbPixelData.Image;
+
+            tsdImage.DropDown = mnuImage.DropDown;
+
+            base.OnLoad(e);
+        }
+        private void tbs_Click(object sender, EventArgs e)
+        {
+            // Ensure sender is a menu item
+            ToolStripItem item = sender as ToolStripItem;
+            if (item != null)
+            {
+                ToolStripMenuItem mi = item.Tag as ToolStripMenuItem;
+                if (mi != null)
+                    mi.PerformClick();
+            }
         }
     }
 }
